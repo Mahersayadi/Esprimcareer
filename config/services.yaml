@@ -1,0 +1,27 @@
+parameters:
+    gemini_api_key: '%env(GEMINI_API_KEY)%'
+    voice_messages_directory: '%kernel.project_dir%/public/voice_messages'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    # Service GeminiAPI
+    App\Service\GeminiAPI:
+        arguments:
+            $client: '@http_client'
+            $apiKey: '%gemini_api_key%'
+
+    # Configuration du repository de conversation
+    App\Repository\ConversationRepository:
+        public: true
+        tags: ['controller.service_arguments']

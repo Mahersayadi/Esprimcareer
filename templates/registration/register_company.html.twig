@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register as Company{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('styles/global.css') }}" rel="stylesheet">
+    <style>
+        .register-container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .register-form {
+            flex: 1;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .register-side {
+            flex: 1;
+            background: linear-gradient(to right, var(--primary-red), var(--medium-gray));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 50px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .register-side::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50px;
+            width: 200px;
+            height: 100%;
+            background: inherit;
+            transform: skewX(-15deg);
+        }
+        
+        .register-side-content {
+            position: relative;
+            z-index: 2;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .register-container {
+                flex-direction: column;
+            }
+            
+            .register-side {
+                order: -1;
+                padding: 30px 20px;
+            }
+            
+            .register-side::before {
+                display: none;
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="register-container">
+    <div class="register-form">
+        <div class="form-container">
+            <h1 class="form-title">Create Company Account</h1>
+            
+            {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email, {
+                    attr: { class: 'input-field', placeholder: 'Email' }
+                }) }}
+                
+                {{ form_row(registrationForm.username, {
+                    attr: { class: 'input-field', placeholder: 'Username' }
+                }) }}
+                
+                {{ form_row(registrationForm.plainPassword, {
+                    attr: { class: 'input-field', placeholder: 'Password' }
+                }) }}
+                
+                {{ form_row(registrationForm.companyName, {
+                    attr: { class: 'input-field', placeholder: 'Company Name' }
+                }) }}
+                
+                {{ form_row(registrationForm.industry, {
+                    attr: { class: 'input-field', placeholder: 'Industry' }
+                }) }}
+                
+                {{ form_row(registrationForm.address, {
+                    attr: { class: 'input-field', placeholder: 'Address' }
+                }) }}
+                {{ form_row(registrationForm._token) }} 
+
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Register</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+    
+    <div class="register-side">
+        <div class="register-side-content">
+            <h2 style="font-size: 28px; margin-bottom: 20px;">Welcome Back!</h2>
+            <p style="margin-bottom: 30px; line-height: 1.6;">To keep connected with us please login with your personal info</p>
+            <a href="{{ path('app_login') }}" class="btn btn-secondary">Sign In</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

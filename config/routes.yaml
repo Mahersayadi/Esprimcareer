@@ -1,0 +1,8 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+app_first_page:
+    path: /
+    controller: App\Controller\FirstPageController::index
